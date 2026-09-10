@@ -4,10 +4,12 @@ PS4 Controller → Robotic Arm Control
 
 Real-time robotic arm control using a PS4 controller.
 
-• Left stick  → Move X/Y
+• Left stick    → Move X/Y
 • Right stick Y → Move Z
 • Right stick X → Control gripper
 • Circle button → EMERGENCY KILL (Torque OFF)
+• button2       → Toggle LED
+
 
 
 Author: Dean Zylman
@@ -17,7 +19,7 @@ Project: Z-Robotics
 import pygame
 import serial
 import json
-import time
+import timegit pull origin main
 
 # ============================================================
 # ========================= USER CONFIG ======================
@@ -90,6 +92,7 @@ def send(cmd):
 send({"T": 210, "cmd": 1})  # Torque ON at startup
 time.sleep(0.3)
 
+debounce_ticks_start = pygame.time.get_ticks()
 
 # ============================================================
 # ================= PYGAME INIT ==============================
@@ -163,6 +166,20 @@ while True:
         if i == 1 and state:
             print("!!! EMERGENCY STOP ACTIVATED !!!")
             send({"T": 210, "cmd": 0})  # Torque OFF
+
+        # ================= Light SWITCH =================
+        # Button 2
+        # Toggle Light
+
+        if i == 2 and state and (pygame.time.get_ticks() - debounce_ticks_start) > 200:
+            print("!!! toggle Light !!!")
+            debounce_ticks_start = pygame.time.get_ticks()
+            if LED_State == 0:
+                LED_State = 255
+                send({"T": 114, "led": 255})  # LED ON
+            else:
+                LED_State = 0
+                send({"T": 114, "led": 1})  # LED OFF
 
     # ========================================================
     # ================= POSITION UPDATE =======================
