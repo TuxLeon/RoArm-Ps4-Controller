@@ -8,7 +8,7 @@ Real-time robotic arm control using a PS4 controller.
 • Right stick Y → Move Z
 • Right stick X → Control gripper
 • Circle button → EMERGENCY KILL (Torque OFF)
-• button2       → Toggle LED
+• Button 2       → Toggle LED
 
 
 
@@ -19,7 +19,7 @@ Project: Z-Robotics
 import pygame
 import serial
 import json
-import timegit pull origin main
+import time
 
 # ============================================================
 # ========================= USER CONFIG ======================
