@@ -128,7 +128,11 @@ R2:
 L2:
     Open gripper
 
+Button 1:
+    Emergency stop (disable torque)
 
+Button 2:
+    Toggle LED
 --------------------------------------------------
 Project by Dean Zylman
 Z-Robotics
